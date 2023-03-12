@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Button, Grid, styled, TextField } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { signUp } from '../store/auth/auth.thunk'
-import { UserRoles } from '../lib/constants/common'
+import { signUp } from '../../store/auth/auth.thunk'
+import { UserRoles } from '../../lib/constants/common'
 
 const SignUp = () => {
    const dispatch = useDispatch()

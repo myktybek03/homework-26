@@ -29,3 +29,7 @@ export const signIn = createAsyncThunk(
       }
    }
 )
+
+export const signOut = createAsyncThunk('/auth/signout', async () => {
+   return localStorage.removeItem(STORAGE_KEYS.AUTH)
+})

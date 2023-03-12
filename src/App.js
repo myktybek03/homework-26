@@ -5,9 +5,9 @@ import { BrowserRouter } from 'react-router-dom'
 import Snackbar from './components/UI/Snackbar'
 import { uiActions } from './store/ui/uiSlice'
 import { darkTheme, lightTheme } from './lib/constants/theme'
-import Routess from './routes/Routess'
 import { store } from './store'
 import './App.css'
+import Routess from './routes/Routes'
 
 function AppContent() {
    const snackbar = useSelector((state) => state.ui.snackbar)

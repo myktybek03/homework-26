@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, Grid, styled, TextField, Typography } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { signIn } from '../store/auth/auth.thunk'
+import { signIn } from '../../store/auth/auth.thunk'
 
 const SignIn = () => {
    const navigate = useNavigate()

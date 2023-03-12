@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { STORAGE_KEYS, UserRoles } from '../../lib/constants/common'
-import { signIn, signUp } from './auth.thunk'
+import { signIn, signOut, signUp } from './auth.thunk'
 
 const getInitialState = () => {
    const jsonData = localStorage.getItem(STORAGE_KEYS.AUTH)
    if (jsonData) {
       const userData = JSON.parse(jsonData)
       return {
-         isAuthorized: false,
+         isAuthorized: true,
          token: userData.token,
          user: {
-            name: userData.name,
-            email: userData.email,
-            role: userData.role,
+            name: userData.user.name,
+            email: userData.user.email,
+            role: userData.user.role,
          },
       }
    }
@@ -27,17 +27,12 @@ const getInitialState = () => {
    }
 }
 
-const initialState = {
-   isAuthrized: false,
-   ...getInitialState(),
-}
-
 const authSlice = createSlice({
    name: 'auth',
-   initialState,
+   initialState: getInitialState(),
    extraReducers: (builder) => {
       builder.addCase(signUp.fulfilled, (state, { payload }) => {
-         state.isAuthrized = true
+         state.isAuthorized = true
          state.token = payload.token
 
          state.user = {
@@ -46,14 +41,26 @@ const authSlice = createSlice({
             role: payload.user.role,
          }
       })
+
       builder.addCase(signIn.fulfilled, (state, { payload }) => {
-         state.isAuthrized = true
+         state.isAuthorized = true
          state.token = payload.token
 
          state.user = {
             name: payload.user.name,
             email: payload.user.name,
             role: payload.user.role,
+         }
+      })
+
+      builder.addCase(signOut.fulfilled, (state) => {
+         state.isAuthorized = false
+         state.token = ''
+
+         state.user = {
+            name: '',
+            email: '',
+            role: UserRoles.GUEST,
          }
       })
    },

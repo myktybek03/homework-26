@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import styledComponents from 'styled-components'
 import { Switch, styled, Button } from '@mui/material'
 // import { styled } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBasket } from '../../store/basket/basketSlice'
 import BusketButton from './BusketButton'
 import { uiActions } from '../../store/ui/uiSlice'
+import { signOut } from '../../store/auth/auth.thunk'
 
 const Header = ({ onClick }) => {
    const navigate = useNavigate()
@@ -51,12 +52,15 @@ const Header = ({ onClick }) => {
       navigate('/signin')
    }
    const signOutHandler = () => {
-      navigate('/signin')
+      dispatch(signOut())
+      // navigate('/signin')
    }
 
    return (
       <Container>
-         <Logo>ReactMeals</Logo>
+         <LinkStyle to="/">
+            <Logo>ReactMeals</Logo>
+         </LinkStyle>
          <BusketButton
             className={animationClass}
             onClick={onClick}
@@ -95,12 +99,17 @@ const Container = styled('header')(({ theme }) => ({
    zIndex: '1',
 }))
 
+const LinkStyle = styled(Link)`
+   text-decoration: none;
+`
+
 const Logo = styledComponents.p`
   font-weight: 600;
   font-size: 2.375rem;
   line-height: 3.5625rem;
   color: #ffffff;
   margin: 0;
+  text-decoration: none;
 `
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
